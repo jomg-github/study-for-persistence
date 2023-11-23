@@ -1,11 +1,13 @@
 package com.example.demo.domain;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.relational.core.mapping.Table;
+import jakarta.persistence.*;
 
-@Table("PRODUCT")
+@Entity
+@Table(name = "PRODUCT")
+@org.springframework.data.relational.core.mapping.Table("PRODUCT")
 public class ProductEntity {
-    @Id
+    @Id @org.springframework.data.annotation.Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
     private Integer price;
