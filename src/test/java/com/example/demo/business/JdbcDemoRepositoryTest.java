@@ -1,9 +1,14 @@
 package com.example.demo.business;
 
+import com.example.demo.config.SpringJdbcConfig;
 import com.example.demo.domain.Product;
+
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.jdbc.core.JdbcTemplate;
 
 import java.sql.SQLException;
 
@@ -14,8 +19,11 @@ class JdbcDemoRepositoryTest {
 
     @BeforeEach
     void setUp() {
-        demoRepository = new JdbcRepository();
+//        demoRepository = new JdbcRepository();
 
+        ApplicationContext ac = new AnnotationConfigApplicationContext(SpringJdbcConfig.class);
+        JdbcTemplate jdbcTemplate = ac.getBean(JdbcTemplate.class);
+        demoRepository = new JdbcTemplateRepository(jdbcTemplate);
     }
 
     @AfterEach
